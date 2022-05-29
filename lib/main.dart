@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swiss_knife_tracker/landing_page.dart';
+import 'login_screen.dart';
 
 void main() {
 
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: const LandingPage(),
+      // home: const LandingPage(),
+      home: const LoginScreen(),
     );
   }
 }
