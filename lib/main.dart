@@ -3,7 +3,6 @@ import 'package:swiss_knife_tracker/landing_page.dart';
 import 'login_screen.dart';
 
 void main() {
-
   runApp(const MyApp());
 }
 
