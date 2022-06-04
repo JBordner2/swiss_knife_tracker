@@ -16,19 +16,93 @@ class _CreateEvent extends State<CreateEvent> {
 
     return Scaffold(
       appBar: appBar(),
-      body: ListView.builder(
-        itemCount: 2,
-        itemBuilder: (context, index) {
-          final field = fields[index];
-          // return Text(item.name);
-          return TextField(
-              decoration: InputDecoration(
-                label: Text("COME BACK TO")
-              ),
-          );
-        },
+      body: Column(
+        children: <Widget>[
+          CreateEventForm(fields: fields),
+          Spacer(),
+          submitButton(),
+          cancelButton()
+
+          // SizedBox(height: 10)
+        ],
+      )
+    );
+  }
+
+  OutlinedButton submitButton() {
+    return OutlinedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.green.withAlpha(100),
+            minimumSize: const Size.fromHeight(100), // NEW
+          ),
+          onPressed: () {
+            print("Handle submit action");
+          },
+          child: const Text(
+            'Submit',
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          ),
+        );
+  }
+
+  OutlinedButton cancelButton() {
+    return OutlinedButton(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.red.withAlpha(100),
+        minimumSize: const Size.fromHeight(100), // NEW
+      ),
+      onPressed: () {
+        print("Handle cancel action");
+      },
+      child: const Text(
+        'Cancel',
+        style: TextStyle(fontSize: 24, color: Colors.white),
       ),
     );
+  }
+}
+
+class CreateEventForm extends StatelessWidget {
+  const CreateEventForm({
+    Key? key,
+    required this.fields,
+  }) : super(key: key);
+
+  final List<CreateEventFields> fields;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 2,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        final field = fields[index];
+        return TextField(
+          decoration: InputDecoration(
+            label: Text(getLabelTxt(field)),
+
+            /*
+             TODO: When coming back add drop down button for type... Might need
+             to remove TextField option for Type & just use drop down option as seen in tutorial
+             */
+
+          ),
+        );
+      },
+    );
+  }
+
+  getLabelTxt(CreateEventFields field) {
+    switch (field) {
+      case CreateEventFields.name: {
+        return "Name";
+      }
+      case CreateEventFields.type: {
+        return "Type";
+      }
+    }
   }
 }
 
