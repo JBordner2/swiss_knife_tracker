@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:swiss_knife_tracker/create_event.dart';
 import 'package:swiss_knife_tracker/landing_page.dart';
-import 'login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       // home: const LandingPage(),
-      home: const LoginScreen(),
+      home: const CreateEvent(),
     );
   }
 }
