@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'mock_events.dart';
+import 'DataModels/EventModel.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  List<Event> events = generateRandomEvents();
+  List<EventModel> events = generateRandomEvents();
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,9 @@ class _LandingPageState extends State<LandingPage> {
           final event = events[index];
           // return Text(item.name);
           return ListTile(
-            title: Text(event.name),
+            title: Text(event.name ?? ""),
             tileColor: getTileColor(index),
-            subtitle: Text(event.createdAtLongDisplayText()),
+            subtitle: Text(event.createdAtLongDisplayText() ?? "jack"),
           );
         },
       ),
