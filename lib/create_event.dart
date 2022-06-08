@@ -62,34 +62,56 @@ class _CreateEvent extends State<CreateEvent> {
   }
 }
 
-class CreateEventForm extends StatelessWidget {
-  const CreateEventForm({
-    Key? key,
-    required this.fields,
-  }) : super(key: key);
-
+class CreateEventForm extends StatefulWidget {
   final List<CreateEventFields> fields;
+  final List<String> dropDownFields = const ["Track by number", "Track by time"];
+  const CreateEventForm({Key? key, required this.fields}) : super(key: key);
+
+  @override
+  State<CreateEventForm> createState() => _CreateEventForm();
+}
+
+class _CreateEventForm extends State<CreateEventForm> {
+
+  //TODO: What is the best way to default this value??? I would assume there is state management I can use and this is kept in the CreateEventForm class?
+  String? selectedItem = null;
 
   @override
   Widget build(BuildContext context) {
+
+    //TODO: Wrap inside of form class... Form widget might actually be placed directly in CreateEvent widget....
     return ListView.builder(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
       itemCount: 2,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        final field = fields[index];
-        return TextField(
-          decoration: InputDecoration(
-            label: Text(getLabelTxt(field)),
+        final field = widget.fields[index];
+        switch (field) {
 
-            /*
-             TODO: When coming back add drop down button for type... Might need
-             to remove TextField option for Type & just use drop down option as seen in tutorial
-             */
+          case CreateEventFields.name: {
+            return TextField(
+              decoration: InputDecoration(
+                label: Text(getLabelTxt(field)),
 
-          ),
-        );
+              ),
+            );
+          }
+
+          case CreateEventFields.type: {
+            return DropdownButtonFormField<String>(
+                onChanged: (item) => setState(() => selectedItem = item),
+                value: selectedItem,
+                items: widget.dropDownFields
+                    .map((item) => DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(item),
+            )).toList()
+
+            );
+                // onChanged: )
+          }
+        }
       },
     );
   }
@@ -126,7 +148,11 @@ enum CreateEventFields {
   }
 
   getAppBarDateText() {
-    var month = DateTime.now().month;
-    var day = DateTime.now().day;
+    var month = DateTime
+        .now()
+        .month;
+    var day = DateTime
+        .now()
+        .day;
     return " $month/$day ";
   }
