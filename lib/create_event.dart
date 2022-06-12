@@ -93,7 +93,7 @@ class _CreateEventForm extends State<CreateEventForm> {
             return TextField(
               decoration: InputDecoration(
                 label: Text(getLabelTxt(field)),
-
+                contentPadding: EdgeInsets.fromLTRB(12, 8, 0, 8)
               ),
             );
           }
@@ -106,7 +106,8 @@ class _CreateEventForm extends State<CreateEventForm> {
                     .map((item) => DropdownMenuItem<String>(
                     value: item,
                     child: Text(item),
-            )).toList()
+            )).toList(),
+              alignment: Alignment(0, 0),
 
             );
                 // onChanged: )
